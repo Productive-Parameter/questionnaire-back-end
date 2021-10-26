@@ -1,15 +1,30 @@
 package productiveparameter.Kyselypalvelu.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Question {
 	
-	private Long id;
-	private String type;
-	private boolean mandatory;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Long id;
+	public String type;
 	
-	public Question(String type, boolean mandatory) {
+	
+	public Question(Long id, String type) {
+		super();
+		
+		this.id = id;
+		this.type = type;
+	}
+	
+
+	public Question(String type) {
 		super();
 		this.type = type;
-		this.mandatory = mandatory;
 	}
 
 	public Question() {
@@ -33,17 +48,11 @@ public class Question {
 		this.type = type;
 	}
 
-	public boolean isMandatory() {
-		return mandatory;
-	}
 
-	public void setMandatory(boolean mandatory) {
-		this.mandatory = mandatory;
-	}
 
 	@Override
 	public String toString() {
-		return "Question [type=" + type + ", mandatory=" + mandatory + "]";
+		return "Question [type=" + type + ", mandatory=";
 	}
 	
 
