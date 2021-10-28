@@ -5,16 +5,36 @@
 <meta charset="UTF-8" content = text/css>
 </head>
 <body>
-	<h1 class=".text-sm-left">Lisää kysely:</h1> 
-	<div>
-		<form th:object="${question}" th:action="@{savequestion}" method="post" >
-		
-			
-			<label for ="text">Kysymys:</label>
-			<input type="text" id="kysmys" th:field="*{type}"></input>
 
-			<input type="submit" value="Lisää kysymys"></input>
+	<h1>Lisää kysely:</h1> 
+	<div>
+		<form th:action="@{savequestion}" th:object="${lista}" method="POST">
+					
+			<label>Kysymys:</label>
+			<input type="text" id = "question" name="question"></input>
+
+			<input type="button"  onclick="addQuestion()" id="type" value="Lisää kysymys" 	></input>
+			<ui>
+				<li>Kysymys</li>
+			</ui>
+			<input type="submit">Tallenna kysely</input>
 			
 		</form>
 	</div>
+	
+	<script type="text/javascript">
+
+		let questions = []
+		function addQuestion(){
+				
+				question =  document.getElementById("question").value
+				questions.push(question)
+				
+			}
+		function sendQuestionnaire(){
+				
+		}
+		
+	</script>
 </body>
+

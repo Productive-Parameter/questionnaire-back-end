@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Lisää kysely</title> 
+<meta charset="UTF-8" content = text/css>
+</head>
+<body>
+
+	<h1>Lisää kysely:</h1> 
+	<div>
+		<form th:action="@{savequestionnaire}" th:object="${questionnaire}" action="#" method="post">
+					
+			<label for= "kysely">Kyselyn nimi</label>
+			<input type = "text" field="*{name}"  id="name"> </input>
+			
+			<input type="submit">Tallenna kysely</input>
+			
+		</form>
+	</div>
+	
+	<script type="text/javascript">		
+	</script>
+</body>
+

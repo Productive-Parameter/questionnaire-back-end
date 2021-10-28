@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import productiveparameter.Kyselypalvelu.domain.Question;
 import productiveparameter.Kyselypalvelu.domain.QuestionRepository;
+import productiveparameter.Kyselypalvelu.domain.Questionnaire;
 
 @SpringBootApplication
 public class KyselypalveluApplication {
