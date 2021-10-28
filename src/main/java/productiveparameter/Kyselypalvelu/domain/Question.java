@@ -1,10 +1,24 @@
 package productiveparameter.Kyselypalvelu.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Question {
 	
-	private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long questionId;
 	private String type;
 	private boolean mandatory;
+	
+	@ManyToOne
+	@JoinColumn(name = "questionnaireId")
+	private Questionnaire questionnaire;
 	
 	public Question(String type, boolean mandatory) {
 		super();
@@ -18,11 +32,11 @@ public class Question {
 	}
 
 	public Long getId() {
-		return id;
+		return questionId;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.questionId = id;
 	}
 
 	public String getType() {

@@ -2,36 +2,48 @@ package productiveparameter.Kyselypalvelu.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Questionnaire {
 	
-	private Long id;
-	private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long questionnaireId;
+	private String questionnaireName;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
 	private List<Question> questions;
 	
 	public Questionnaire(String name) {
 		super();
-		this.name = name;
+		this.questionnaireName = name;
 	}
 
 	public Questionnaire() {
 		super();
-		this.name = null;
+		this.questionnaireName = null;
 	}
 
 	public Long getId() {
-		return id;
+		return questionnaireId;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.questionnaireId = id;
 	}
 
 	public String getName() {
-		return name;
+		return questionnaireName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.questionnaireName = name;
 	}
 
 	public List<Question> getQuestions() {
@@ -44,7 +56,7 @@ public class Questionnaire {
 
 	@Override
 	public String toString() {
-		return "Questionnaire [name=" + name + "]";
+		return "Questionnaire [name=" + questionnaireName + "]";
 	}
 
 }
