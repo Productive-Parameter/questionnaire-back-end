@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
+
+<head>
+<title>Kyselyt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h2>Kaikki kyselyt</h2>
+		
+
+
+
+<th:block th:each="kysely : ${kyselyt}">
+<table style="width:100%">
+<th th:text="${kysely.nimi}">  </th>
+
+<tr>
+<td th:text="${kysely.kysymys1}">Kysymys 1</td>
+</tr>
+
+<tr>
+<td th:text="${kysely.kysymys2}">Kysymys 2</td>
+</tr>
+
+<tr>
+<td th:text="${kysely.kysymys3}">Kysymys 3</td>
+</tr>
+
+</table>
+<br>
+</th:block>
+ 
+<button type="button"><a href="/uusikysely">Lisää uusi kysely</a>
+</button>
+</body>
+</html>
