@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Muokkaa kyselyä</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h2>Muokkaa kyselyn nimeä</h2>
+	<h2>Lisää kysymys</h2>
+	<div>
+		<form th:object="${question}" th:action="@{savequestion}" action="#" method="post">
+		  	<label for="name">Kysymys</label>
+			<input type="text" id="name" th:field="*{questionContent}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Tallenna"></input>
+		</form>
+	</div>
+	<h2>Tallennetut kysymykset</h2>
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+			<th></th>
+			</tr>
+			<tr th:each="question : ${questions}">
+				<td th:text="${question.questionContent}">Kysymys</td>
+				<td><button>Muokkaa kysymystä</button></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

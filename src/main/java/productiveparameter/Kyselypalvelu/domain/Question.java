@@ -14,6 +14,7 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long questionId;
 	private String type;
+	private String questionContent;
 	private boolean mandatory;
 	
 	@ManyToOne
@@ -28,15 +29,17 @@ public class Question {
 
 	public Question() {
 		super();
+		this.questionContent = null;
 		this.type = null;
 	}
 
-	public Long getId() {
+
+	public Long getQuestionId() {
 		return questionId;
 	}
 
-	public void setId(Long id) {
-		this.questionId = id;
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
 	}
 
 	public String getType() {
@@ -47,6 +50,14 @@ public class Question {
 		this.type = type;
 	}
 
+	public String getQuestionContent() {
+		return questionContent;
+	}
+
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
+
 	public boolean isMandatory() {
 		return mandatory;
 	}
@@ -55,10 +66,17 @@ public class Question {
 		this.mandatory = mandatory;
 	}
 
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
+	}
+
+	public void setQuestionnaire(Questionnaire questionnaire) {
+		this.questionnaire = questionnaire;
+	}
+
 	@Override
 	public String toString() {
-		return "Question [type=" + type + ", mandatory=" + mandatory + "]";
-	}
-	
+		return "Question [type=" + type + ", questionContent=" + questionContent + ", mandatory=" + mandatory + "]";
+	}	
 
 }

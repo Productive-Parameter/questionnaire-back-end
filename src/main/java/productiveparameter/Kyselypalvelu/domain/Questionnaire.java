@@ -30,20 +30,20 @@ public class Questionnaire {
 		this.questionnaireName = null;
 	}
 
-	public Long getId() {
+	public Long getQuestionnaireId() {
 		return questionnaireId;
 	}
 
-	public void setId(Long id) {
-		this.questionnaireId = id;
+	public void setQuestionnaireId(Long questionnaireId) {
+		this.questionnaireId = questionnaireId;
 	}
 
-	public String getName() {
+	public String getQuestionnaireName() {
 		return questionnaireName;
 	}
 
-	public void setName(String name) {
-		this.questionnaireName = name;
+	public void setQuestionnaireName(String questionnaireName) {
+		this.questionnaireName = questionnaireName;
 	}
 
 	public List<Question> getQuestions() {
