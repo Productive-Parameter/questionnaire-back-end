@@ -19,7 +19,7 @@ public class KyselypalveluApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/kyselies").allowedOrigins(
-						"https://kyselypalvelu-ppfront.herokuapp.com/");
+						"https://kyselypalvelu-ppfront.herokuapp.com/kyselyt");
 			}
 		};
 	}
