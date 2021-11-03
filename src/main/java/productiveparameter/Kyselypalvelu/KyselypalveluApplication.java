@@ -13,7 +13,7 @@ public class KyselypalveluApplication {
 		SpringApplication.run(KyselypalveluApplication.class, args);
 	}
 	
-	@Bean
+	/* @Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
@@ -24,6 +24,6 @@ public class KyselypalveluApplication {
 						"https://kyselypalvelu-ppfront.herokuapp.com/kyselyt");
 			}
 		};
-	}
+	} */
 
 }
