@@ -18,7 +18,9 @@ public class KyselypalveluApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/kyselies").allowedOrigins(
+				registry.addMapping("https://kyselypalvelu.herokuapp.com/api/kyselies").allowedOrigins(
+						"https://kyselypalvelu-ppfront.herokuapp.com");
+				registry.addMapping("https://kyselypalvelu.herokuapp.com/api/kyselies").allowedOrigins(
 						"https://kyselypalvelu-ppfront.herokuapp.com/kyselyt");
 			}
 		};
