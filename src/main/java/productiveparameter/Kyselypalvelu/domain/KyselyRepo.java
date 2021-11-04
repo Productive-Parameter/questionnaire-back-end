@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RepositoryRestResource
 // @CrossOrigin("https://kyselypalvelu-ppfront.herokuapp.com/")
+// kommentoin tän toistaseks pois kun muuten ei voi laittaa pyyntöjä kotoa (vain herokusta) - sampsa
 public interface KyselyRepo extends CrudRepository<Kysely, Long>  {
 
     List<Kysely> findByNimi(String nimi);
