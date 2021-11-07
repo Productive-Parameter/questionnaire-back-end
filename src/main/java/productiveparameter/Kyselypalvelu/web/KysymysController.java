@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
 import productiveparameter.Kyselypalvelu.domain.Kysymys;
 import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
@@ -32,11 +33,18 @@ public class KysymysController {
     	return (List<Kysymys>) kysymysrepo.findAll();
     }
     
-	// 3. REST --> hakee kysymykset id:n avulla
+	// 3. REST --> hakee kysymyksiä id:n avulla
     @RequestMapping(value="/api/kysymykset/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Kysymys> findKysymysRest(@PathVariable("kysymysid") Long Id) {	
     	return kysymysrepo.findById(Id);
-    }  
+    }
+    
+    // 4. REST --> hakee tietyn kyselyn kysymykset kysely id:n avulla
+    @RequestMapping(value = "/api/kysymykset/kysely/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Kysymys> findKysymyksetByKyselyId(@PathVariable("id") Long id) {
+    	Kysely kysely = kyselyrepo.findById(id).get();
+    	return kysely.getKysymykset();
+    }
     
     /*******************************************/
     
