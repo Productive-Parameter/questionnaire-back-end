@@ -1,9 +1,6 @@
 package productiveparameter.Kyselypalvelu.domain;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,62 +13,103 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Kysymys {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long kysymysid;
+    private Long id;
     private String teksti;
+    private String tyyppi;
+    private Boolean pakollinen;
 
     
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "id") 
+    @JoinColumn(name = "kyselyid", referencedColumnName = "id") 
     private Kysely kysely;
 
     
-    public Kysymys() {}
+    public Kysymys() {
+    	super();
+    	this.teksti = null;
+    	this.tyyppi = null;
+    	this.kysely = null;
+    	this.pakollinen = false;
+    }
     
-  
-	public Kysymys(String teksti, Kysely kysely) {
+    public Kysymys(String teksti) {
+    	super();
+    	this.teksti = teksti;
+    	this.tyyppi = null;
+    	this.kysely = null;
+    	this.pakollinen = false;
+    }
+    
+    public Kysymys(String teksti, Kysely kysely) {
 		super();
 		this.teksti = teksti;
+		this.tyyppi = null;
 		this.kysely = kysely;
-	}		
-
+		this.pakollinen = false;
+	}	
+  
+	public Kysymys(String teksti, String tyyppi, Kysely kysely) {
+		super();
+		this.teksti = teksti;
+		this.tyyppi = tyyppi;
+		this.kysely = kysely;
+		this.pakollinen = false;
+	}
 	
+	public Kysymys(String teksti, String tyyppi, Kysely kysely, Boolean pakollinen) {
+		super();
+		this.teksti = teksti;
+		this.tyyppi = tyyppi;
+		this.kysely = kysely;
+		this.pakollinen = pakollinen;
+	}	
+
+	public Long getId() {
+		return id;
+	}
 
 	public void setId(Long kysymysid) {
-		this.kysymysid = kysymysid;
-	}
-	
-	public void setTeksti(String teksti) {
-		this.teksti = teksti;
+		this.id = kysymysid;
 	}
 
-
-	public void setKysely(Kysely kysely) {
-		this.kysely = kysely;
-	}
-	
-	
-	
-	public Long getId() {
-		return kysymysid;
-	}
 	public String getTeksti() {
 		return teksti;
 	}
 
+	public void setTeksti(String teksti) {
+		this.teksti = teksti;
+	}
+
+	public String getTyyppi() {
+		return tyyppi;
+	}
+
+	public void setTyyppi(String tyyppi) {
+		this.tyyppi = tyyppi;
+	}
 
 	public Kysely getKysely() {
 		return kysely;
 	}
 
+	public void setKysely(Kysely kysely) {
+		this.kysely = kysely;
+	}
 
+	public Boolean getPakollinen() {
+		return pakollinen;
+	}
 
-	
+	public void setPakollinen(Boolean pakollinen) {
+		this.pakollinen = pakollinen;
+	}
+
 	@Override
 	public String toString() {
 		if (this.kysely != null)
-			return "Kysymys [kysymysid=" + kysymysid + ", teksti=" + teksti +  ", kysely =" + this.getKysely() + "]";		
+			return "Kysymys [kysymysid=" + id + ", teksti=" + teksti + ", tyyppi=" + tyyppi + ", pakollinen=" + pakollinen + ", kysely =" + this.getKysely() + "]";		
 		else
-			return "Kysymys [kysymysid=" + kysymysid + ", teksti=" + teksti + "]";	
+			return "Kysymys [kysymysid=" + id + ", teksti=" + teksti + ", tyyppi=" + tyyppi + ", pakollinen=" + pakollinen + "]";	
 	}
 }
