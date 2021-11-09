@@ -20,7 +20,6 @@ public class Kysymys {
 
     
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "kyselyid", referencedColumnName = "id") 
     private Kysely kysely;
 
