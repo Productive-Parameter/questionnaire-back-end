@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\tonif\Documents\Tekstit\Haaga-Helia\Tietojenkäsittely\Ohjelmistoprojekti 1\questionnaire-back-end"/>
 			<item value="C:\HH_tiko\ohjelmointiprojekti_1\questionnaire-back-end"/>
 		</list>
 		<list key="projectNameTemplate">
