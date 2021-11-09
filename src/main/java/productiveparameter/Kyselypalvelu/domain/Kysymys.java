@@ -1,11 +1,15 @@
 package productiveparameter.Kyselypalvelu.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +27,10 @@ public class Kysymys {
     @JsonIgnore
     @JoinColumn(name = "kyselyid", referencedColumnName = "id") 
     private Kysely kysely;
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vaihtoehto")
+    private List<Vaihtoehto> vaihtoehdot;
 
     
     public Kysymys() {
@@ -57,13 +65,24 @@ public class Kysymys {
 		this.pakollinen = false;
 	}
 	
-	public Kysymys(String teksti, String tyyppi, Kysely kysely, Boolean pakollinen) {
+	public Kysymys(String teksti, String tyyppi, Boolean pakollinen, Kysely kysely) {
 		super();
 		this.teksti = teksti;
 		this.tyyppi = tyyppi;
 		this.kysely = kysely;
 		this.pakollinen = pakollinen;
 	}	
+
+	public Kysymys(Long id, String teksti, String tyyppi, Boolean pakollinen, Kysely kysely,
+			List<Vaihtoehto> vaihtoehdot) {
+		super();
+		this.id = id;
+		this.teksti = teksti;
+		this.tyyppi = tyyppi;
+		this.pakollinen = pakollinen;
+		this.kysely = kysely;
+		this.vaihtoehdot = vaihtoehdot;
+	}
 
 	public Long getId() {
 		return id;
