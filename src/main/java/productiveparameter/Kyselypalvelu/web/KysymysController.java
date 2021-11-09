@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,58 +22,46 @@ import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
 @Controller
 public class KysymysController {
 	
-	@Autowired	
-	private KyselyRepo kyselyrepo; 
+	@Autowired private KyselyRepo kyselyrepo; 
 	
-	@Autowired	
-	private KysymysRepo kysymysrepo; 
+	@Autowired private KysymysRepo kysymysrepo; 
 	
-    
+    /************ RESTFUL SERVICES ***************/
 	// 2.  REST --> hakee kaikki kysymykset osoitteeseen http://localhost:8080/words
-    @RequestMapping(value="/kysymykset", method = RequestMethod.GET)
+    @RequestMapping(value="/api/kysymykset", method = RequestMethod.GET)
     public @ResponseBody List<Kysymys> kysymyslistaRest() {	
-        return (List<Kysymys>) kysymysrepo.findAll();
-    } 
-
-
-	// 3. REST --> hakee kysymykset id:n avulla
-    @RequestMapping(value="/kysymykset/{id}", method = RequestMethod.GET)
+    	return (List<Kysymys>) kysymysrepo.findAll();
+    }
+    
+	// 3. REST --> hakee kysymyksiä id:n avulla
+    @RequestMapping(value="/api/kysymykset/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Kysymys> findKysymysRest(@PathVariable("kysymysid") Long Id) {	
     	return kysymysrepo.findById(Id);
-    }  
-  
-
-      
+    }
+    
+    // 4. REST --> hakee tietyn kyselyn kysymykset kysely id:n avulla
+    @RequestMapping(value = "/api/kysymykset/kysely/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Kysymys> findKysymyksetByKyselyId(@PathVariable("id") Long id) {
+    	Kysely kysely = kyselyrepo.findById(id).get();
+    	return kysely.getKysymykset();
+    }
+    
+    /*******************************************/
+    
      // 4.  Uuden kysymyksen lisääminen 
-     @RequestMapping(value = "/lisaakysymys")
-     public String lisaaKysymys(Model model){
-     	model.addAttribute("kysymys", new Kysymys());
-     	model.addAttribute("kyselyt", kyselyrepo.findAll());
-       return "lisaakysymys";
-     }  
-     
-
+    @RequestMapping(value = "/kysymys/lisaa")
+    public String lisaaKysymys(Model model){
+    	model.addAttribute("kysymys", new Kysymys());
+    	model.addAttribute("kyselyt", kyselyrepo.findAll());
+    	return "lisaakysymys";
+    }
+    
      
      // 5. Tallenna kysymys
-     @RequestMapping(value = "/tallennakysymys", method = RequestMethod.POST)
-     public String tallennaKysymys(Kysymys kysymys){        
-         kysymysrepo.save(kysymys);
-         return "redirect:lisaakysymys";
-     } 
-     
-     //--------------------------------------------------------------
-     //6. 
-     @RequestMapping(value = "/kysely/{id}/kysymykset", method =RequestMethod.GET)
-     public String kyselyKysymykset(@PathVariable("id") Long Id, Model model){
-     	Optional<Kysely> kysely = kyselyrepo.findById(Id); 	
-   		model.addAttribute("kysely", kysely);	
-   		List<Kysymys> kyselynKysymykset = kysymysrepo.findByKysely(kysely);
-        System.out.println("moimoimoi");
-   		System.out.println(kyselynKysymykset);
-   		model.addAttribute("kysymykset", kyselynKysymykset);
-   		return "kysely";
-     }
-     
-     //-----------------------------------------------------
+    @RequestMapping(value = "/kysymys/tallenna", method = RequestMethod.POST)
+    public String tallennaKysymys(Kysymys kysymys){        
+    	kysymysrepo.save(kysymys);
+    	return "redirect:lisaakysymys";
+    } 
     
 }

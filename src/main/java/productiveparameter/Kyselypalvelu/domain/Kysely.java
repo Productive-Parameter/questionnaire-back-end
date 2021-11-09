@@ -26,29 +26,27 @@ public class Kysely {
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kysely")
-	
 	private List<Kysymys> kysymykset;
 	
-
-	public Kysely() {}
+	public Kysely() {
+		super();
+		this.nimi = null;
+		this.kysymykset = null;
+	}
 	
 	public Kysely (String nimi, List<Kysymys> kysymykset) {
 		super();
 		this.nimi = nimi;
 		this.kysymykset = kysymykset;
-	
 	}
-		
-	
 	
 	public Long getId() {
 		return id;
 	}
+	
 	public String getNimi() {
 		return nimi;
 	}
-	
-	
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -57,17 +55,18 @@ public class Kysely {
 	public void setNimi(String nimi) {
 		this.nimi = nimi;
 	}
-	
 
-	public List<Kysymys> getKysymys() {
+	public List<Kysymys> getKysymykset() {
 		return kysymykset;
 	}
 
 	public void setKysymykset(List<Kysymys> kysymykset) {
 		this.kysymykset = kysymykset;
 	}
-
-//	}
+	
+	public int getKysymyksetSize() {
+		return kysymykset.size();
+	}
 
 	@Override
 	public String toString() {
