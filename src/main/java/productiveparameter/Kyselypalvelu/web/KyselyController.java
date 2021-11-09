@@ -67,7 +67,7 @@ public class KyselyController {
 	@RequestMapping(value = "/kyselyt/tallenna", method = RequestMethod.POST)
 	public String tallenna(Kysely kysely){
 		kyselyrepo.save(kysely);
-		return "redirect:kyselyt";        
+		return "redirect:/kyselyt";        
 	}    
     
 	// 4. Kyselyä klikkaamalla näyttää kyselyn kysymykset kyselyn sivulla (hakee kysymykset kyselyn id:n perusteella)
