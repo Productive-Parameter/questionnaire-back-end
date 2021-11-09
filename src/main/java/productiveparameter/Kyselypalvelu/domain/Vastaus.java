@@ -24,8 +24,8 @@ public class Vastaus {
 	private String vastaus;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vaihtoehto" )
-	private List<Vaihtoehto> monivalinta;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vastaus" )
+	private List<VastausVaihtoehto> vaihtoehdot;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -36,14 +36,14 @@ public class Vastaus {
 	public Vastaus() {
 		super();
 		this.vastaus = null;
-		this.monivalinta = new ArrayList<Vaihtoehto>();
+		this.vaihtoehdot = new ArrayList<VastausVaihtoehto>();
 		this.kysymys = null;
 	}
 
 	public Vastaus(String vastaus, Kysymys kysymys) {
 		super();
 		this.vastaus = vastaus;
-		this.monivalinta = new ArrayList<Vaihtoehto>();
+		this.vaihtoehdot = new ArrayList<VastausVaihtoehto>();
 		this.kysymys = kysymys;
 	}
 
@@ -71,12 +71,12 @@ public class Vastaus {
 		this.kysymys = kysymys;
 	}
 	
-	public List<Vaihtoehto> getMonivalinta() {
-		return monivalinta;
+	public List<VastausVaihtoehto> getVaihtoehdot() {
+		return vaihtoehdot;
 	}
 
-	public void setMonivalinta(List<Vaihtoehto> monivalinta) {
-		this.monivalinta = monivalinta;
+	public void setVaihtoehdot(List<VastausVaihtoehto> vaihtoehdot) {
+		this.vaihtoehdot = vaihtoehdot;
 	}
 
 	@Override

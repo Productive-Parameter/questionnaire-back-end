@@ -29,8 +29,8 @@ public class Kysymys {
     private Kysely kysely;
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vaihtoehto")
-    private List<Vaihtoehto> vaihtoehdot;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
+    private List<KysymysVaihtoehto> vaihtoehdot;
 
     
     public Kysymys() {
@@ -74,7 +74,7 @@ public class Kysymys {
 	}	
 
 	public Kysymys(Long id, String teksti, String tyyppi, Boolean pakollinen, Kysely kysely,
-			List<Vaihtoehto> vaihtoehdot) {
+			List<KysymysVaihtoehto> vaihtoehdot) {
 		super();
 		this.id = id;
 		this.teksti = teksti;
@@ -122,6 +122,14 @@ public class Kysymys {
 
 	public void setPakollinen(Boolean pakollinen) {
 		this.pakollinen = pakollinen;
+	}
+
+	public List<KysymysVaihtoehto> getVaihtoehdot() {
+		return vaihtoehdot;
+	}
+
+	public void setVaihtoehdot(List<KysymysVaihtoehto> vaihtoehdot) {
+		this.vaihtoehdot = vaihtoehdot;
 	}
 
 	@Override
