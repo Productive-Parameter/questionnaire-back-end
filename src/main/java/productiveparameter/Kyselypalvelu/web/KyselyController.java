@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
@@ -63,12 +64,13 @@ public class KyselyController {
 		return "uusikysely";
 	}
 
-	// 3. kyselyn tallennus  
+	// 3. kyselyn tallennus. Siirtyy tallennuksen jälkeen suoraan luodun kyselyn sivulle
 
 	@RequestMapping(value = "/kyselyt/tallenna", method = RequestMethod.POST)
-	public String tallenna(Kysely kysely){
+	public String tallenna(Kysely kysely, RedirectAttributes redirectAttributes){
 		kyselyrepo.save(kysely);
-		return "redirect:/kyselyt";        
+		redirectAttributes.addAttribute("id", kysely.getId());
+		return "redirect:/kyselyt/{id}";
 	}    
     
 	// 4. Kyselyä klikkaamalla näyttää kyselyn kysymykset kyselyn sivulla (hakee kysymykset kyselyn id:n perusteella)
@@ -92,12 +94,18 @@ public class KyselyController {
 	}
 	
 	// 6. Poistaa kysymyksen id:n avulla
-	@RequestMapping(value = "kyselyt/{id}/poista/{kysymysid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/kyselyt/{id}/poista/{kysymysid}", method = RequestMethod.GET)
 	public String poistaKysymys(@PathVariable("id") Long id, @PathVariable("kysymysid") Long kysymysId) {
 		kysymysRepo.delete(kysymysRepo.findById(kysymysId).get());
 		return "redirect:/kyselyt/{id}";
 	}
-     
+
+	// 7. Poistaa kyselyn id:n perusteella (ja kaikki kyselyn kysymykset)
+	@RequestMapping(value = "/kyselyt/poista/{id}")
+	public String poistaKysely(@PathVariable("id") Long kyselyId) {
+		kyselyrepo.deleteById(kyselyId);
+		return "redirect:../../kyselyt";
+	}     
      
 	// ??   näyttää kaikki kysymykset kyselysivulla http://localhost:8080/kysely
 	@RequestMapping(value="/kyselyt/kysymykset")
