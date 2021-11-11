@@ -37,7 +37,7 @@ public class VastausController {
 	@RequestMapping(value = "/api/vastaukset", method = RequestMethod.POST)
 	public @ResponseBody Vastaus saveRest(@RequestBody Vastaus vastaus) {
 		repository.save(vastaus);
-		return vastaus;// repository.findById(vastaus.getId()).get();
+		return vastaus;
 	}
 	
 	/*********************************************************/
