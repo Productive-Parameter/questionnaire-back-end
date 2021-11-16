@@ -28,6 +28,11 @@ public class Vastaus {
 	private List<VastausVaihtoehto> vaihtoehdot;
 	
 	@ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "kyselyid", referencedColumnName = "id") 
+    private Kysely kysely;
+	
+	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "kysymysid", referencedColumnName = "id") 
 	private Kysymys kysymys;

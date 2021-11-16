@@ -29,6 +29,9 @@ public class Kysely {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kysely")
 	private List<Kysymys> kysymykset;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kysely")
+	private List<Vastaus> vastaukset;
+	
 	public Kysely() {
 		super();
 		this.nimi = null;
