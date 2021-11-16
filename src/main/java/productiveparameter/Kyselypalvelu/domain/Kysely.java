@@ -2,6 +2,7 @@ package productiveparameter.Kyselypalvelu.domain;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,12 +38,14 @@ public class Kysely {
 		this.nimi = null;
 		this.kuvaus = null;
 		this.kysymykset = null;
+		this.vastaukset = null;
 	}
 	
 	public Kysely (String nimi, List<Kysymys> kysymykset) {
 		super();
 		this.nimi = nimi;
 		this.kysymykset = kysymykset;
+		this.vastaukset = new ArrayList<Vastaus>();
 	}
 
 	public Kysely (String nimi, String kuvaus, List<Kysymys> kysymykset) {
@@ -50,6 +53,7 @@ public class Kysely {
 		this.nimi = nimi;
 		this.kuvaus = kuvaus;
 		this.kysymykset = kysymykset;
+		this.vastaukset = new ArrayList<Vastaus>();
 	}
 	
 	public Long getId() {
@@ -86,6 +90,14 @@ public class Kysely {
 	
 	public int getKysymyksetSize() {
 		return kysymykset.size();
+	}
+
+	public List<Vastaus> getVastaukset() {
+		return vastaukset;
+	}
+
+	public void setVastaukset(List<Vastaus> vastaukset) {
+		this.vastaukset = vastaukset;
 	}
 
 	@Override
