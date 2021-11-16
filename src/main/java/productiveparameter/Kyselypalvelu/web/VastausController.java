@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import productiveparameter.Kyselypalvelu.domain.Kysymys;
-import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
+import productiveparameter.Kyselypalvelu.domain.Kysely;
+import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
 import productiveparameter.Kyselypalvelu.domain.Vastaus;
 import productiveparameter.Kyselypalvelu.domain.VastausRepo;
 
@@ -23,6 +23,7 @@ import productiveparameter.Kyselypalvelu.domain.VastausRepo;
 public class VastausController {
 	
 	@Autowired private VastausRepo repository;
+	@Autowired private KyselyRepo kyselyRepo;
 	
 	/**************** RESTFUL SERVICES ***********************/
 	
@@ -37,10 +38,9 @@ public class VastausController {
 	}
 	
 	@RequestMapping(value = "/api/vastaukset", method = RequestMethod.POST)
-	public @ResponseBody Vastaus saveRest(@RequestBody Vastaus vastaus, @RequestBody Kysymys kysymys) {
-		Vastaus newVastaus = new Vastaus(vastaus.getVastaus(), kysymys);
-		repository.save(newVastaus);
-		return vastaus;
+	public @ResponseBody Kysely saveRest(@RequestBody Kysely kysely) {
+		kyselyRepo.save(kysely);
+		return kysely;
 	}
 	
 	/*********************************************************/
