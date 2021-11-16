@@ -31,13 +31,17 @@
 					<th>Kuvaus</th>
 					<th>Kysymyksien määrä</th>
 					<th></th>
+					<th></th>
 				</tr>
 				<tr th:each="kysely : ${kyselyt}">
 					<td th:text="${kysely.nimi}"></td>
 					<td th:text="${kysely.kuvaus}"></td>
 					<td th:text="${kysely.getKysymyksetSize}"></td>
 					<td>
-						<a th:href="@{/kyselyt/{id}(id=${kysely.id})}">Kysymykset</a>
+						<a th:href="@{/kyselyt/{id}(id=${kysely.id})}" class="btn btn-sm btn-primary">Kysymykset</a>
+					</td>
+					<td>
+						<a th:href="@{/kyselyt/poista/{id}(id=${kysely.id})}" class="btn btn-sm btn-danger">Poista kysely</a>
 					</td>
 				</tr>
 			</table>
