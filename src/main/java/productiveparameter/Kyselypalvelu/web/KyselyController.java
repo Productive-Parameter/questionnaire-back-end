@@ -88,6 +88,7 @@ public class KyselyController {
 	public String lisaaKysymys(@PathVariable("id") Long id, @ModelAttribute Kysymys kysymys) {
 		kysymys.setTeksti(kysymys.getTeksti());
 		kysymys.setTyyppi(kysymys.getTyyppi());
+		kysymys.setVaihtoehtomaara(kysymys.getVaihtoehtomaara());
 		kysymys.setKysely(kyselyrepo.findById(id).get());
 		kysymysRepo.save(kysymys);
 		return "redirect:/kyselyt/{id}";

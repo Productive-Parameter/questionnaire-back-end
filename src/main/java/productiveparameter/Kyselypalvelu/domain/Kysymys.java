@@ -21,6 +21,7 @@ public class Kysymys {
     private String teksti;
     private String tyyppi;
     private Boolean pakollinen;
+    private Integer vaihtoehtomaara;
 
     
     @ManyToOne
@@ -39,6 +40,7 @@ public class Kysymys {
     	this.tyyppi = null;
     	this.kysely = null;
     	this.pakollinen = false;
+    	this.vaihtoehtomaara = null;
     }
     
     public Kysymys(String teksti) {
@@ -122,6 +124,14 @@ public class Kysymys {
 
 	public void setPakollinen(Boolean pakollinen) {
 		this.pakollinen = pakollinen;
+	}
+
+	public Integer getVaihtoehtomaara() {
+		return vaihtoehtomaara;
+	}
+
+	public void setVaihtoehtomaara(Integer vaihtoehtomaara) {
+		this.vaihtoehtomaara = vaihtoehtomaara;
 	}
 
 	public List<KysymysVaihtoehto> getVaihtoehdot() {

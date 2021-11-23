@@ -24,6 +24,16 @@
 					<option value="check">checkbox</option>
 					<option value="skaala">skaala</option>
 				</select>
+				
+				<select class="form-control mr-sm-2" id="vaihtoehtomaara" th:field="${kysymys.vaihtoehtomaara}" style="min-width: 100px"	>
+					<option value="">Valitse vaihtoehtojen määrä</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+				
 				<label class="form-control mr-sm-2" for="pakollinen" style="text-align: center">Pakollisuus
 					<input type="checkbox" id="pakollinen" name="pakollinen" value="true" th:field="${kysymys.pakollinen}">
 				</label>
@@ -36,14 +46,17 @@
 	    		<th>Kysymys</th>
 	    		<th>Tyyppi</th>
 	    		<th>Pakollinen</th>
+	    		<th>Vaihtoehtojen määrä</th>
 	    		<th></th>
 	    	</tr>
 			<tr th:each=" kysymys : ${kysely.kysymykset}">
 				<td th:text="${kysymys.teksti} "></td>
 				<td th:text="${kysymys.tyyppi} "></td>
 				<td th:text="${kysymys.pakollinen} "></td>
+				<td th:text="${kysymys.vaihtoehtomaara} "></td>
 				<td>
 					<a class="btn btn-warning" th:href="@{/kyselyt/{id}/poista/{kysymysid}(id=${kysely.id}, kysymysid=${kysymys.id})}" >Poista</a>				
+					<a class="btn btn-warning" th:href="@{/kysymys/lisaavaihtoehdot" >vaihtoehdot</a>				
 				</td>
 			</tr>
 			

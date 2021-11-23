@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
 import productiveparameter.Kyselypalvelu.domain.Kysymys;
 import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
+import productiveparameter.Kyselypalvelu.domain.MonivalintaVaihtoehdot;
+import productiveparameter.Kyselypalvelu.domain.MonivalintaVaihtoehdotRepo;
 
 
 
@@ -25,6 +28,8 @@ public class KysymysController {
 	@Autowired private KyselyRepo kyselyrepo; 
 	
 	@Autowired private KysymysRepo kysymysrepo; 
+	
+	@Autowired private MonivalintaVaihtoehdotRepo monivalintarepo;
 	
     /************ RESTFUL SERVICES ***************/
 	// 2.  REST --> hakee kaikki kysymykset osoitteeseen http://localhost:8080/words
@@ -48,7 +53,7 @@ public class KysymysController {
     
     /*******************************************/
     
-     // 4.  Uuden kysymyksen lisääminen 
+     // 4.  Uuden kysymyksen lisääminen HUOM!!!!!!!!!!! Ei käytetä tällä hetkellä 
     @RequestMapping(value = "/kysymys/lisaa")
     public String lisaaKysymys(Model model){
     	model.addAttribute("kysymys", new Kysymys());
@@ -57,11 +62,33 @@ public class KysymysController {
     }
     
      
-     // 5. Tallenna kysymys
+     // 5. Tallenna kysymys HUOM!!!!!!!!!!! Ei käytetä tällä hetkellä
     @RequestMapping(value = "/kysymys/tallenna", method = RequestMethod.POST)
     public String tallennaKysymys(Kysymys kysymys){        
     	kysymysrepo.save(kysymys);
     	return "redirect:lisaakysymys";
     } 
+    
+    // 6. Lisää vaihtoehdot monivalintakysymyksiin
+    @RequestMapping(value = "/kysymys/{id}/lisaavaihtoehdot", method = RequestMethod.GET)
+    public String lisaaMonivalintaVaihtoehdot(@PathVariable("id") Long id, Model model) {
+    	Kysymys kysymys = kysymysrepo.findById(id).get();
+    	model.addAttribute("kysymys", kysymys);
+    	model.addAttribute("vaihtoehdot", new MonivalintaVaihtoehdot());
+    	return "asetavaihtoehdot";
+    }
+    
+    // 7. Tallenna vaihtoehdot monivalintakysymyksiin
+    @RequestMapping(value = "/kysymys/{id}/tallennavaihtoehdot", method = RequestMethod.POST)
+    public String tallennaMonivalintaVaihtoehdot(@PathVariable("id") Long id, @ModelAttribute MonivalintaVaihtoehdot vaihtoehdot) {
+    	vaihtoehdot.setVaihtoehto1(vaihtoehdot.getVaihtoehto1());
+    	vaihtoehdot.setVaihtoehto2(vaihtoehdot.getVaihtoehto2());
+    	vaihtoehdot.setVaihtoehto3(vaihtoehdot.getVaihtoehto3());
+    	vaihtoehdot.setVaihtoehto4(vaihtoehdot.getVaihtoehto4());
+    	vaihtoehdot.setVaihtoehto5(vaihtoehdot.getVaihtoehto5());
+    	vaihtoehdot.setKysymys(kysymysrepo.findById(id).get());
+    	monivalintarepo.save(vaihtoehdot);
+    	return "redirect:/asetavaihtoehdot/{id}";
+    }
     
 }
