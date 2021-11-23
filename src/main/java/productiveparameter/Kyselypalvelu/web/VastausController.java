@@ -39,8 +39,12 @@ public class VastausController {
 	
 	@RequestMapping(value = "/api/vastaukset", method = RequestMethod.POST)
 	public @ResponseBody Kysely saveRest(@RequestBody Kysely kysely) {
-		kyselyRepo.save(kysely);
+		Kysely toUpdate = kyselyRepo.findById(kysely.getId()).get();
+		toUpdate.setVastaukset(kysely.getVastaukset());
+		kyselyRepo.save(toUpdate);
 		return kysely;
+		/* kyselyRepo.save(kysely);
+		return kysely; */
 	}
 	
 	/*********************************************************/
