@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
+import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
 import productiveparameter.Kyselypalvelu.domain.Vastaus;
 import productiveparameter.Kyselypalvelu.domain.VastausRepo;
 
@@ -24,6 +25,7 @@ public class VastausController {
 	
 	@Autowired private VastausRepo repository;
 	@Autowired private KyselyRepo kyselyRepo;
+	@Autowired private KysymysRepo kysymysRepo;
 	
 	/**************** RESTFUL SERVICES ***********************/
 	
@@ -37,10 +39,17 @@ public class VastausController {
 		return repository.findById(id);
 	}
 	
+	@CrossOrigin(origins = "*") //paikallistyöhön
 	@RequestMapping(value = "/api/vastaukset", method = RequestMethod.POST)
 	public @ResponseBody Kysely saveRest(@RequestBody Kysely kysely) {
 		Kysely toUpdate = kyselyRepo.findById(kysely.getId()).get();
 		toUpdate.setVastaukset(kysely.getVastaukset());
+		
+		// kysymykset ja vastaukset linkittyy. Miksi kyselyt halutaan linkittää vastauksiin?
+		for (Vastaus vastaus : toUpdate.getVastaukset()) {
+			vastaus.setKysymys(kysymysRepo.findById(vastaus.getId()).get());
+		}
+		
 		kyselyRepo.save(toUpdate);
 		return kysely;
 		/* kyselyRepo.save(kysely);
