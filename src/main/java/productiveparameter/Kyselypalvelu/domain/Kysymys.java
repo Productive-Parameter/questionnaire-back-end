@@ -33,6 +33,9 @@ public class Kysymys {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<KysymysVaihtoehto> vaihtoehdot;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
+    private List<MonivalintaVaihtoehdot> monivalintavaihtoehdot;
     
     public Kysymys() {
     	super();
@@ -140,6 +143,14 @@ public class Kysymys {
 
 	public void setVaihtoehdot(List<KysymysVaihtoehto> vaihtoehdot) {
 		this.vaihtoehdot = vaihtoehdot;
+	}
+
+	public List<MonivalintaVaihtoehdot> getMonivalintavaihtoehdot() {
+		return monivalintavaihtoehdot;
+	}
+
+	public void setMonivalintavaihtoehdot(List<MonivalintaVaihtoehdot> monivalintavaihtoehdot) {
+		this.monivalintavaihtoehdot = monivalintavaihtoehdot;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
@@ -80,15 +81,19 @@ public class KysymysController {
     
     // 7. Tallenna vaihtoehdot monivalintakysymyksiin
     @RequestMapping(value = "/kysymys/{id}/tallennavaihtoehdot", method = RequestMethod.POST)
-    public String tallennaMonivalintaVaihtoehdot(@PathVariable("id") Long id, @ModelAttribute MonivalintaVaihtoehdot vaihtoehdot, @PathVariable("kyselyid") Long id) {
+    public String tallennaMonivalintaVaihtoehdot(@PathVariable("id") Long id, @ModelAttribute MonivalintaVaihtoehdot vaihtoehdot, RedirectAttributes redirectAttribbutes) {
     	vaihtoehdot.setVaihtoehto1(vaihtoehdot.getVaihtoehto1());
     	vaihtoehdot.setVaihtoehto2(vaihtoehdot.getVaihtoehto2());
     	vaihtoehdot.setVaihtoehto3(vaihtoehdot.getVaihtoehto3());
     	vaihtoehdot.setVaihtoehto4(vaihtoehdot.getVaihtoehto4());
     	vaihtoehdot.setVaihtoehto5(vaihtoehdot.getVaihtoehto5());
-    	vaihtoehdot.setKysymys(kysymysrepo.findById(id).get());
+    	Kysymys kysymys = kysymysrepo.findById(id).get();
+    	vaihtoehdot.setKysymys(kysymys);
     	monivalintarepo.save(vaihtoehdot);
-    	return "redirect:/kyselyt/{id}";
+    	redirectAttribbutes.addAttribute("kyselyid", kysymys.getKysely().getId());
+    
+    	System.out.println(kysymys.getMonivalintavaihtoehdot());
+    	return "redirect:/kyselyt/{kyselyid}";
     }
     
 }
