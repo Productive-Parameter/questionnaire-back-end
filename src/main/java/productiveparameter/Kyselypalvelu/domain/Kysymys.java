@@ -32,10 +32,13 @@ public class Kysymys {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<KysymysVaihtoehto> vaihtoehdot;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
+    private List<Vastaus> vastaukset;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
-    private List<MonivalintaVaihtoehdot> monivalintavaihtoehdot;
+    private List<MonivalintaVaihtoehto> monivalintavaihtoehdot;
     
     public Kysymys() {
     	super();
@@ -145,11 +148,11 @@ public class Kysymys {
 		this.vaihtoehdot = vaihtoehdot;
 	}
 
-	public List<MonivalintaVaihtoehdot> getMonivalintavaihtoehdot() {
+	public List<MonivalintaVaihtoehto> getMonivalintavaihtoehdot() {
 		return monivalintavaihtoehdot;
 	}
 
-	public void setMonivalintavaihtoehdot(List<MonivalintaVaihtoehdot> monivalintavaihtoehdot) {
+	public void setMonivalintavaihtoehdot(List<MonivalintaVaihtoehto> monivalintavaihtoehdot) {
 		this.monivalintavaihtoehdot = monivalintavaihtoehdot;
 	}
 
