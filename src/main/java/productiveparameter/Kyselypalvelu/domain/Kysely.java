@@ -40,6 +40,13 @@ public class Kysely {
 		this.vastaukset = null;
 	}
 	
+	public Kysely (String nimi, String kuvaus) {
+		super();
+		this.nimi = nimi;
+		this.kysymykset = null;
+		this.kuvaus = kuvaus;
+	}
+	
 	public Kysely (String nimi, List<Kysymys> kysymykset) {
 		super();
 		this.nimi = nimi;

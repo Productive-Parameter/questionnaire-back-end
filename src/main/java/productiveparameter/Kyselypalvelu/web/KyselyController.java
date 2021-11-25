@@ -56,13 +56,13 @@ public class KyselyController {
 
 	// 2.  uuden kyselyn lisääminen (tyhjä lomake) --vanha--
 
-	@RequestMapping(value = "/uusikysely", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/uusikysely", method = RequestMethod.GET)
 	public String getUusiLomake(Model model) {
 		List<Kysymys> kysymykset = new ArrayList<Kysymys>();
 		model.addAttribute("kysely", new Kysely("", kysymykset));
 		model.addAttribute("kysymys", new Kysymys()); // "tyhjä" olio
 		return "uusikysely";
-	}
+	}*/
 
 	// 3. kyselyn tallennus. Siirtyy tallennuksen jälkeen suoraan luodun kyselyn sivulle
 
@@ -108,10 +108,10 @@ public class KyselyController {
 	}     
      
 	// ??   näyttää kaikki kysymykset kyselysivulla http://localhost:8080/kysely
-	@RequestMapping(value="/kyselyt/kysymykset")
+	/*@RequestMapping(value="/kyselyt/kysymykset")
 	public String kysymysLista(Model model) {	
 		List<Kysymys> kysymykset = (List<Kysymys>) kysymysRepo.findAll();	
 		model.addAttribute("kysymykset", kysymykset);	
 		return "kysely";
-	}
+	}*/
 }
