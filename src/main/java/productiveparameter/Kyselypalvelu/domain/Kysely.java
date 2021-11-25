@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //Kyselylomakkeen kokonaisuus (entity)
 
 
@@ -94,6 +96,7 @@ public class Kysely {
 		this.kysymykset = kysymykset;
 	}
 	
+	@JsonIgnore // mahdollinen post-ongelman ratkaisu?
 	public int getKysymyksetSize() {
 		return kysymykset.size();
 	}

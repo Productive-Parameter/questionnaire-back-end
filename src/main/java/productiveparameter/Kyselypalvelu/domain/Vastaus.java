@@ -76,6 +76,14 @@ public class Vastaus {
 		this.kysymys = kysymys;
 	}
 	
+	public Kysely getKysely() {
+		return kysely;
+	}
+
+	public void setKysely(Kysely kysely) {
+		this.kysely = kysely;
+	}
+
 	public List<VastausVaihtoehto> getVaihtoehdot() {
 		return vaihtoehdot;
 	}
