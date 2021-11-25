@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Vastaus {
@@ -33,7 +34,7 @@ public class Vastaus {
     private Kysely kysely;
 	
 	@ManyToOne
-	@JsonIgnore
+	@JsonIgnoreProperties("vastaukset")
 	@JoinColumn(name = "kysymysid", referencedColumnName = "id") 
 	private Kysymys kysymys;
 
@@ -76,6 +77,14 @@ public class Vastaus {
 		this.kysymys = kysymys;
 	}
 	
+	public Kysely getKysely() {
+		return kysely;
+	}
+
+	public void setKysely(Kysely kysely) {
+		this.kysely = kysely;
+	}
+
 	public List<VastausVaihtoehto> getVaihtoehdot() {
 		return vaihtoehdot;
 	}

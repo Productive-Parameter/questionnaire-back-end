@@ -32,6 +32,9 @@ public class Kysymys {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<KysymysVaihtoehto> vaihtoehdot;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
+    private List<Vastaus> vastaukset;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")

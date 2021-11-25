@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //Kyselylomakkeen kokonaisuus (entity)
 
 
@@ -38,6 +40,13 @@ public class Kysely {
 		this.kuvaus = null;
 		this.kysymykset = null;
 		this.vastaukset = null;
+	}
+	
+	public Kysely (String nimi, String kuvaus) {
+		super();
+		this.nimi = nimi;
+		this.kysymykset = null;
+		this.kuvaus = kuvaus;
 	}
 	
 	public Kysely (String nimi, List<Kysymys> kysymykset) {
@@ -87,6 +96,7 @@ public class Kysely {
 		this.kysymykset = kysymykset;
 	}
 	
+	@JsonIgnore // mahdollinen post-ongelman ratkaisu?
 	public int getKysymyksetSize() {
 		return kysymykset.size();
 	}
