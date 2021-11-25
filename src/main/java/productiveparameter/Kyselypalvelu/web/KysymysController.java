@@ -80,7 +80,7 @@ public class KysymysController {
     
     // 7. Tallenna vaihtoehdot monivalintakysymyksiin
     @RequestMapping(value = "/kysymys/{id}/tallennavaihtoehdot", method = RequestMethod.POST)
-    public String tallennaMonivalintaVaihtoehdot(@PathVariable("id") Long id, @ModelAttribute MonivalintaVaihtoehdot vaihtoehdot) {
+    public String tallennaMonivalintaVaihtoehdot(@PathVariable("id") Long id, @ModelAttribute MonivalintaVaihtoehdot vaihtoehdot, @PathVariable("kyselyid") Long id) {
     	vaihtoehdot.setVaihtoehto1(vaihtoehdot.getVaihtoehto1());
     	vaihtoehdot.setVaihtoehto2(vaihtoehdot.getVaihtoehto2());
     	vaihtoehdot.setVaihtoehto3(vaihtoehdot.getVaihtoehto3());
@@ -88,7 +88,7 @@ public class KysymysController {
     	vaihtoehdot.setVaihtoehto5(vaihtoehdot.getVaihtoehto5());
     	vaihtoehdot.setKysymys(kysymysrepo.findById(id).get());
     	monivalintarepo.save(vaihtoehdot);
-    	return "redirect:/asetavaihtoehdot/{id}";
+    	return "redirect:/kyselyt/{id}";
     }
     
 }
