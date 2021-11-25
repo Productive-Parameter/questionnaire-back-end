@@ -42,12 +42,13 @@ public class VastausController {
 	@CrossOrigin(origins = "*") //paikallistyöhön
 	@RequestMapping(value = "/api/vastaukset", method = RequestMethod.POST)
 	public @ResponseBody Kysely saveRest(@RequestBody Kysely kysely) {
-		Kysely toUpdate = kyselyRepo.findById(kysely.getId()).get();
+		Kysely toUpdate = kyselyRepo.findById(kysely.getId()).get(); // refaktoroi
 		toUpdate.setVastaukset(kysely.getVastaukset());
 		
 		// kysymykset ja vastaukset linkittyy. Miksi kyselyt halutaan linkittää vastauksiin?
 		for (Vastaus vastaus : toUpdate.getVastaukset()) {
 			vastaus.setKysymys(kysymysRepo.findById(vastaus.getId()).get());
+			vastaus.setKysely(toUpdate);
 		}
 		
 		kyselyRepo.save(toUpdate);
