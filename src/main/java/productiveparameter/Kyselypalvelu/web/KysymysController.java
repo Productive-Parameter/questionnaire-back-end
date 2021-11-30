@@ -12,20 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
 import productiveparameter.Kyselypalvelu.domain.Kysymys;
 import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
-<<<<<<< HEAD
-import productiveparameter.Kyselypalvelu.domain.MonivalintaVaihtoehdot;
-import productiveparameter.Kyselypalvelu.domain.MonivalintaVaihtoehdotRepo;
-
-=======
 import productiveparameter.Kyselypalvelu.domain.MonivalintaVaihtoehto;
 import productiveparameter.Kyselypalvelu.domain.MonivalintaVaihtoehtoRepo;
->>>>>>> juhobackend
+
 
 @CrossOrigin(origins = "*")
 @Controller
