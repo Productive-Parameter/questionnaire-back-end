@@ -40,7 +40,8 @@
 		</div>
 	
 	    <div style="clear: both; display: block; height: 10px;"></div>
-		<a href="/kyselyt" class="btn btn-primary">Palaa kyselyihin</a>  
+		<a href="/kyselyt" class="btn btn-primary">Palaa kyselyihin</a>
+		<a th:href="@{/kyselyt/{kyselyid} (kyselyid=${kysely.id})}" class="btn btn-secondary">Palaa kysymyksiin</a>  
 	 
 	 <!----------------    ----------------------------------> 
 	  

@@ -18,7 +18,7 @@
 			<form class="form-inline" th:action="@{/kyselyt/{id}/lisaa (id=${kysely.id})}" action="#" method="post">
 				<input class="form-control col-sm-7 mr-sm-2" type="text" id="nimi" placeholder="Lisää uusi kysymys" th:field="${kysymys.teksti}" required />
 				<select class="form-control mr-sm-2" id="tyyppi" th:field="${kysymys.tyyppi}" style="min-width: 100px" required>
-					<option value="">Valitse tyyppi</option>
+					<option value="" hidden>Valitse tyyppi</option>
 					<option value="teksti">teksti</option>
 					<option value="radio">radio</option>
 					<option value="check">checkbox</option>
@@ -56,12 +56,14 @@
 				<td th:text="${kysymys.teksti} "></td>
 				<td th:text="${kysymys.tyyppi} "></td>
 				<td th:text="${kysymys.pakollinen} "></td>
-				<td th:text="${kysymys.vaihtoehtomaara} "></td>
+				<td>
+					<div th:if="${kysymys.tyyppi != 'teksti'}" th:text="${#lists.size(kysymys.monivalintavaihtoehdot)}"></div>
+				</td>
 				<td>
 					<a class="btn btn-warning" th:href="@{/kyselyt/{id}/poista/{kysymysid}(id=${kysely.id}, kysymysid=${kysymys.id})}" >Poista</a>				
 				</td>
 				<td>
-					<a class="btn btn-primary" th:href="@{/kysymys/{id}/lisaavaihtoehdot(id=${kysymys.id})}">Aseta vaihtoehdot</a>				
+					<a th:if="${kysymys.tyyppi != 'teksti'}" class="btn btn-primary" th:href="@{/kysymys/{id}/lisaavaihtoehdot(id=${kysymys.id})}">Aseta vaihtoehdot</a>				
 				</td>
 			</tr>
 			

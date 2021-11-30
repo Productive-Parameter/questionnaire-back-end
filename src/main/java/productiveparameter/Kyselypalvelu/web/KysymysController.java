@@ -75,8 +75,10 @@ public class KysymysController {
 	@RequestMapping(value = "/kysymys/{id}/lisaavaihtoehdot", method = RequestMethod.GET)
 	public String lisaaMonivalintaVaihtoehdot(@PathVariable("id") Long id, Model model) {
 		Kysymys kysymys = kysymysrepo.findById(id).get();
+		Kysely kysely = kysymys.getKysely();
 		model.addAttribute("kysymys", kysymys);
 		model.addAttribute("vaihtoehto", new MonivalintaVaihtoehto());
+		model.addAttribute("kysely", kysely);
 		return "asetavaihtoehdot";
 	}
 

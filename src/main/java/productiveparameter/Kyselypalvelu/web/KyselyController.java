@@ -3,6 +3,8 @@ package productiveparameter.Kyselypalvelu.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,14 +86,30 @@ public class KyselyController {
 	
 	// 5. Tallentaa uuden kysymyksen kyselyyn 
 	@RequestMapping(value = "/kyselyt/{id}/lisaa", method = RequestMethod.POST)
-	public String lisaaKysymys(@PathVariable("id") Long id, @ModelAttribute Kysymys kysymys) {
+	public String lisaaKysymys(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest, @ModelAttribute Kysymys kysymys) {
 		kysymys.setTeksti(kysymys.getTeksti());
 		kysymys.setTyyppi(kysymys.getTyyppi());
 		kysymys.setVaihtoehtomaara(kysymys.getVaihtoehtomaara());
 		kysymys.setKysely(kyselyrepo.findById(id).get());
 		kysymysRepo.save(kysymys);
+		// redirectAttributes.addAttribute("kysymysid", kysymysRepo.findById(kysymys.getId()));
 		return "redirect:/kyselyt/{id}";
+
+		// Tässä mahdollinen välietappiratkaisu uudelleenohjausta varten suoraan vaihtoehtojen asettamiseen
+		// if (kysymys.getTyyppi().equals("teksti")) {
+		// 	return "redirect:/kyselyt/{id}";
+		// } else {
+		// 	return "redirect:/valietappi";
+		// }
 	}
+
+	// Tässä mahdollinen välietappiratkaisu uudelleenohjausta varten suoraan vaihtoehtojen asettamiseen
+	// @RequestMapping(value = "/valietappi", method = RequestMethod.GET)
+	// public String valietappi(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+	// 	Kysymys kysymys = kysymysRepo.findById(id).get();
+	// 	redirectAttributes.addAttribute("kysymysid", kysymys.getId());
+	// 	return "redirect:/kysymys/{kysymysid}/lisaavaihtoehdot";
+	// }
 	
 	// 6. Poistaa kysymyksen id:n avulla
 	@RequestMapping(value = "/kyselyt/{id}/poista/{kysymysid}", method = RequestMethod.GET)
