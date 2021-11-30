@@ -37,7 +37,7 @@ public class Kysymys {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<Vastaus> vastaukset;
 
-    @JsonIgnore
+    @JsonIgnoreProperties("kysymys")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<MonivalintaVaihtoehto> monivalintavaihtoehdot;
     
