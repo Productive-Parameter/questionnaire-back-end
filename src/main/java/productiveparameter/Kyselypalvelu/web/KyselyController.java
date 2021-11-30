@@ -1,6 +1,5 @@
 package productiveparameter.Kyselypalvelu.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +46,7 @@ public class KyselyController {
 
 	// 1.  hakee kaikki kyselyt ja mahdollistaa uuden kyselyn luomisen
 
-	@RequestMapping(value="/kyselyt")
+	@RequestMapping(value={"/kyselyt", "/", "/index"})
 	public String kyselyLista(Model model) {	
 		model.addAttribute("kyselyt", kyselyrepo.findAll());
 		model.addAttribute("uusiKysely", new Kysely());

@@ -16,7 +16,7 @@
 			<h2 th:text="${kysymys.teksti}"></h2>
 			<div class="clear-3"></div>
 			<form class="form-inline" th:action="@{/kysymys/{id}/tallennavaihtoehto (id=${kysymys.id})}" action="#" method="post">
-				<input class="form-control col-sm-7 mr-sm-2" type="text" id="vaihtoehto" placeholder="Lisää vaihtoehto 1" th:field="${vaihtoehto.monivalintavaihtoehto}" required />
+				<input class="form-control col-sm-7 mr-sm-2" type="text" id="vaihtoehto" placeholder="Lisää vaihtoehto" th:field="${vaihtoehto.monivalintavaihtoehto}" required />
 				
 				  <table class="table table-light table-striped table-hover" style="width:100%">
 					  <tr>
