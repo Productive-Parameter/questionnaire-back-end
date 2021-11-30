@@ -3,8 +3,6 @@ package productiveparameter.Kyselypalvelu.web;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,7 +84,7 @@ public class KyselyController {
 	
 	// 5. Tallentaa uuden kysymyksen kyselyyn 
 	@RequestMapping(value = "/kyselyt/{id}/lisaa", method = RequestMethod.POST)
-	public String lisaaKysymys(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest, @ModelAttribute Kysymys kysymys) {
+	public String lisaaKysymys(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, @ModelAttribute Kysymys kysymys) {
 		kysymys.setTeksti(kysymys.getTeksti());
 		kysymys.setTyyppi(kysymys.getTyyppi());
 		kysymys.setVaihtoehtomaara(kysymys.getVaihtoehtomaara());
