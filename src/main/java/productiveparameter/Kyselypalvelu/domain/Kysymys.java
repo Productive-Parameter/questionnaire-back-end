@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Kysymys {
@@ -29,14 +30,14 @@ public class Kysymys {
     @JoinColumn(name = "kyselyid", referencedColumnName = "id") 
     private Kysely kysely;
     
-    @JsonIgnore
+    @JsonIgnoreProperties("kysymys")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<KysymysVaihtoehto> vaihtoehdot;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<Vastaus> vastaukset;
 
-    @JsonIgnore
+    @JsonIgnoreProperties("kysymys")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
     private List<MonivalintaVaihtoehto> monivalintavaihtoehdot;
     
