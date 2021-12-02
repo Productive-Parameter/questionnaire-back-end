@@ -90,24 +90,16 @@ public class KyselyController {
 		kysymys.setVaihtoehtomaara(kysymys.getVaihtoehtomaara());
 		kysymys.setKysely(kyselyrepo.findById(id).get());
 		kysymysRepo.save(kysymys);
-		// redirectAttributes.addAttribute("kysymysid", kysymysRepo.findById(kysymys.getId()));
-		return "redirect:/kyselyt/{id}";
-
-		// Tässä mahdollinen välietappiratkaisu uudelleenohjausta varten suoraan vaihtoehtojen asettamiseen
-		// if (kysymys.getTyyppi().equals("teksti")) {
-		// 	return "redirect:/kyselyt/{id}";
-		// } else {
-		// 	return "redirect:/valietappi";
-		// }
+		if (kysymys.getTyyppi().equals("teksti")) {
+			return "redirect:/kyselyt/{id}";
+		} else {
+			// Siirtyy suoraan vaihtoehtojen asettamiseen, jos kysymystyyppi on MUU kuin teksti
+			List<Kysymys> kysymykset = kyselyrepo.findById(id).get().getKysymykset();
+			Kysymys tallennettuKysymys = kysymykset.get(kysymykset.size() - 1);
+			redirectAttributes.addAttribute("kysymysid", tallennettuKysymys.getId());
+			return "redirect:/kysymys/{kysymysid}/lisaavaihtoehdot";
+		}
 	}
-
-	// Tässä mahdollinen välietappiratkaisu uudelleenohjausta varten suoraan vaihtoehtojen asettamiseen
-	// @RequestMapping(value = "/valietappi", method = RequestMethod.GET)
-	// public String valietappi(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-	// 	Kysymys kysymys = kysymysRepo.findById(id).get();
-	// 	redirectAttributes.addAttribute("kysymysid", kysymys.getId());
-	// 	return "redirect:/kysymys/{kysymysid}/lisaavaihtoehdot";
-	// }
 	
 	// 6. Poistaa kysymyksen id:n avulla
 	@RequestMapping(value = "/kyselyt/{id}/poista/{kysymysid}", method = RequestMethod.GET)
