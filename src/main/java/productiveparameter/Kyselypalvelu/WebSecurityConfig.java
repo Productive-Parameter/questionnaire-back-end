@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
             .authorizeRequests().antMatchers("/css/**").permitAll() // Css käytössä vaikkei olisi kirjautuneena sisään
             .and()
-            .authorizeRequests().antMatchers("/signup", "/saveuser").permitAll() // Katsotaan tarvitaanko tätä tai tuleeko tähän jotain lisää tai muuta tilalle
+            .authorizeRequests().antMatchers("/api/**").permitAll() // Katsotaan tarvitaanko tätä tai tuleeko tähän jotain lisää tai muuta tilalle
             .and()
             .authorizeRequests().anyRequest().authenticated()
             .and()
