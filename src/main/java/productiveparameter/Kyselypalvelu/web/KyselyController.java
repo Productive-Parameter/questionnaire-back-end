@@ -36,7 +36,7 @@ public class KyselyController {
 		return (List<Kysely>) kyselyrepo.findAll();
 	}    
 
-	// REST hakee kyselyn id:n perusteella  <td><a th:href="@{theme/{id}(id=${theme.themeid})}"
+	// REST hakee kyselyn id:n perusteella
 	@RequestMapping(value="/api/kyselyt/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Kysely> findKyselyRest(@PathVariable("id") Long id) {	
 		return kyselyrepo.findById(id);

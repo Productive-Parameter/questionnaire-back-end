@@ -35,7 +35,7 @@ public class KysymysController {
 	private MonivalintaVaihtoehtoRepo monivalintarepo;
 
 	/************ RESTFUL SERVICES ***************/
-	// 2. REST --> hakee kaikki kysymykset osoitteeseen http://localhost:8080/words
+	// 2. REST --> hakee kaikki kysymykset
 	@RequestMapping(value = "/api/kysymykset", method = RequestMethod.GET)
 	public @ResponseBody List<Kysymys> kysymyslistaRest() {
 		return (List<Kysymys>) kysymysrepo.findAll();
