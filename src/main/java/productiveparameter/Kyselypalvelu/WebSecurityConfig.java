@@ -7,24 +7,22 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import productiveparameter.Kyselypalvelu.web.UserDetailServiceImpl;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
-    @Autowired
-    private UserDetailServiceImpl userDetailService;
+    // @Autowired
+    // private UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .authorizeRequests().antMatchers("/css/**").permitAll() // Css käytössä vaikkei olisi kirjautuneena sisään
             .and()
-            .authorizeRequests().antMatchers("/api/**").permitAll() // Katsotaan tarvitaanko tätä tai tuleeko tähän jotain lisää tai muuta tilalle
+            .authorizeRequests().antMatchers("/signup", "/saveuser").permitAll() // Katsotaan tarvitaanko tätä tai tuleeko tähän jotain lisää tai muuta tilalle
             .and()
             .authorizeRequests().anyRequest().authenticated()
             .and()
@@ -38,6 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+        // auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 }
