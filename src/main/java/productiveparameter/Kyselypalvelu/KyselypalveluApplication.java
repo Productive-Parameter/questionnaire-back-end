@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
 import productiveparameter.Kyselypalvelu.domain.KysymysRepo;
+import productiveparameter.Kyselypalvelu.domain.User;
+import productiveparameter.Kyselypalvelu.domain.UserRepo;
 import productiveparameter.Kyselypalvelu.web.UserDetailServiceImpl;
 
 @SpringBootApplication
@@ -25,7 +27,7 @@ public class KyselypalveluApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(KyselyRepo kyselyRepo, KysymysRepo kysymysRepo) {
+	public CommandLineRunner demo(KyselyRepo kyselyRepo, KysymysRepo kysymysRepo, UserRepo userRepository) {
 		return  (args) -> {	
 		};
 	}
