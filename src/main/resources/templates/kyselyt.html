@@ -20,10 +20,16 @@
 				<div class="form-group">
 					<input class="form-control col-sm-10 mr-sm-2" type="text" id="kuvaus" placeholder="Kyselyn kuvaus" th:field="${uusiKysely.kuvaus}" />
 				</div>
-				<button class="btn btn-success" type="submit">Lisää</button>
+				<button
+					class="btn btn-success"
+					type="submit"
+					onclick="return confirm('Tarkistathan oikeinkirjoituksen! Et voi muokata kyselyä enää lisäämisen jälkeen.')">
+					Lisää
+				</button>
 			</form>
 		</div>
 		<div class="clear-5"></div>
+		<div class="alert alert-success col-md-3" th:if="${onnistumisviesti}" th:text="${onnistumisviesti}"></div>
 		<div>
 			<table class="table table-light table-striped table-hover">
 				<tr>
@@ -38,17 +44,19 @@
 					<td th:text="${kysely.kuvaus}"></td>
 					<td th:text="${kysely.getKysymyksetSize}"></td>
 					<td>
-						<a th:href="@{/kyselyt/{id}(id=${kysely.id})}" class="btn btn-sm btn-primary">Kysymykset</a>
+						<a th:href="@{/kyselyt/{id}(id=${kysely.id})}" class="btn btn-primary">Kysymykset</a>
 					</td>
 					<td>
-						<a th:href="@{/kyselyt/poista/{id}(id=${kysely.id})}" class="btn btn-sm btn-danger">Poista kysely</a>
+						<a
+							th:href="@{/kyselyt/poista/{id}(id=${kysely.id})}"
+							class="btn btn-danger"
+							onclick="return confirm('Oletko varma, että haluat poistaa tämän kyselyn? Tämä poistaa kaikki kyselyyn liittyvät kysymykset ja vastaukset, etkä voi peruuttaa toimintoa.')">
+							Poista kysely
+						</a>
 					</td>
 				</tr>
 			</table>
 		</div>
-		
-				
-		
 	</div>
 </body>
 </html>

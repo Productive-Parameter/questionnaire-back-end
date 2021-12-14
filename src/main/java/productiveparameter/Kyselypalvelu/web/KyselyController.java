@@ -53,22 +53,13 @@ public class KyselyController {
 		return "kyselyt";
 	}
 
-	// 2.  uuden kyselyn lisääminen (tyhjä lomake) --vanha--
-
-	/*@RequestMapping(value = "/uusikysely", method = RequestMethod.GET)
-	public String getUusiLomake(Model model) {
-		List<Kysymys> kysymykset = new ArrayList<Kysymys>();
-		model.addAttribute("kysely", new Kysely("", kysymykset));
-		model.addAttribute("kysymys", new Kysymys()); // "tyhjä" olio
-		return "uusikysely";
-	}*/
-
 	// 3. kyselyn tallennus. Siirtyy tallennuksen jälkeen suoraan luodun kyselyn sivulle
 
 	@RequestMapping(value = "/kyselyt/tallenna", method = RequestMethod.POST)
 	public String tallenna(Kysely kysely, RedirectAttributes redirectAttributes){
 		kyselyrepo.save(kysely);
 		redirectAttributes.addAttribute("id", kysely.getId());
+		redirectAttributes.addFlashAttribute("onnistumisviesti", "Kysely lisätty");
 		return "redirect:/kyselyt/{id}";
 	}    
     
@@ -90,6 +81,7 @@ public class KyselyController {
 		kysymys.setVaihtoehtomaara(kysymys.getVaihtoehtomaara());
 		kysymys.setKysely(kyselyrepo.findById(id).get());
 		kysymysRepo.save(kysymys);
+		redirectAttributes.addFlashAttribute("onnistumisviesti", "Kysymys lisätty kyselyyn");
 		if (kysymys.getTyyppi().equals("teksti")) {
 			return "redirect:/kyselyt/{id}";
 		} else {
@@ -103,23 +95,17 @@ public class KyselyController {
 	
 	// 6. Poistaa kysymyksen id:n avulla
 	@RequestMapping(value = "/kyselyt/{id}/poista/{kysymysid}", method = RequestMethod.GET)
-	public String poistaKysymys(@PathVariable("id") Long id, @PathVariable("kysymysid") Long kysymysId) {
+	public String poistaKysymys(@PathVariable("id") Long id, @PathVariable("kysymysid") Long kysymysId, RedirectAttributes redirectAttributes) {
 		kysymysRepo.delete(kysymysRepo.findById(kysymysId).get());
+		redirectAttributes.addFlashAttribute("onnistumisviesti", "Kysymys poistettu");
 		return "redirect:/kyselyt/{id}";
 	}
-
+	
 	// 7. Poistaa kyselyn id:n perusteella (ja kaikki kyselyn kysymykset)
 	@RequestMapping(value = "/kyselyt/poista/{id}")
-	public String poistaKysely(@PathVariable("id") Long kyselyId) {
+	public String poistaKysely(@PathVariable("id") Long kyselyId, RedirectAttributes redirectAttributes) {
 		kyselyrepo.deleteById(kyselyId);
+		redirectAttributes.addFlashAttribute("onnistumisviesti", "Kysely poistettu");
 		return "redirect:../../kyselyt";
-	}     
-     
-	// ??   näyttää kaikki kysymykset kyselysivulla http://localhost:8080/kysely
-	/*@RequestMapping(value="/kyselyt/kysymykset")
-	public String kysymysLista(Model model) {	
-		List<Kysymys> kysymykset = (List<Kysymys>) kysymysRepo.findAll();	
-		model.addAttribute("kysymykset", kysymykset);	
-		return "kysely";
-	}*/
+	}
 }

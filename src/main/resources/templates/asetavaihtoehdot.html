@@ -13,42 +13,36 @@
 <div class="container">
 	
 		<div class="container main">
-			<h2 th:text="${kysymys.teksti}"></h2>
+			<h2 th:text="${'Kysymys: ' + kysymys.teksti}"></h2>
 			<div class="clear-3"></div>
 			<form class="form-inline" th:action="@{/kysymys/{id}/tallennavaihtoehto (id=${kysymys.id})}" action="#" method="post">
 				<input class="form-control col-sm-7 mr-sm-2" type="text" id="vaihtoehto" placeholder="Lisää vaihtoehto" th:field="${vaihtoehto.monivalintavaihtoehto}" required />
-				
-				  <table class="table table-light table-striped table-hover" style="width:100%">
-					  <tr>
-			    		<th>Vaihtoehto</th>
-			    		<th></th>
-			    	</tr>
-					<tr th:each= "vaihtoehto : ${kysymys.monivalintavaihtoehdot}">
-						<td th:text="${vaihtoehto.monivalintavaihtoehto} "></td>
-						<td>
-							<a class="btn btn-warning" th:href="@{/kysymys/{id}/poista/{vaihtoehtoid}(id=${kysymys.id}, vaihtoehtoid=${vaihtoehto.id})}" >Poista</a>				
-						</td>
-					</tr>
-	    
-			
-						   
-	 	</table>
-				
-				
-					<button class="btn btn-success mr-sm-2" type="submit">Lisää</button>
+				<button class="btn btn-success mr-sm-2" type="submit">Lisää</button>
 			</form>
+			<div class="clear-5"></div>
+			<a href="/kyselyt" class="btn btn-primary">Palaa kyselyihin</a>
+			<a th:href="@{/kyselyt/{kyselyid} (kyselyid=${kysely.id})}" class="btn btn-secondary">Palaa kysymyksiin</a>
+			<div class="clear-5"></div>
+			<div class="alert alert-success col-md-3" th:if="${onnistumisviesti}" th:text="${onnistumisviesti}"></div>
+			
+			<table class="table table-light table-striped table-hover" style="width:100%">
+				<tr>
+					<th>Vaihtoehto</th>
+					<th></th>
+				</tr>
+				<tr th:each= "vaihtoehto : ${kysymys.monivalintavaihtoehdot}">
+					<td th:text="${vaihtoehto.monivalintavaihtoehto} "></td>
+					<td>
+						<a
+							class="btn btn-warning"
+							th:href="@{/kysymys/{id}/poista/{vaihtoehtoid}(id=${kysymys.id}, vaihtoehtoid=${vaihtoehto.id})}"
+							onclick="return confirm('Oletko varma, että haluat poistaa tämän vaihtoehdon? Et voi peruuttaa toimintoa.')">
+							Poista
+						</a>				
+					</td>
+				</tr>
+			</table>
 		</div>
-	
-	    <div style="clear: both; display: block; height: 10px;"></div>
-		<a href="/kyselyt" class="btn btn-primary">Palaa kyselyihin</a>
-		<a th:href="@{/kyselyt/{kyselyid} (kyselyid=${kysely.id})}" class="btn btn-secondary">Palaa kysymyksiin</a>  
-	 
-	 <!----------------    ----------------------------------> 
-	  
-	 
-	</div>	    	
-	  
-	 
-	</div>	    	
+	</div>
 </body>
 </html>

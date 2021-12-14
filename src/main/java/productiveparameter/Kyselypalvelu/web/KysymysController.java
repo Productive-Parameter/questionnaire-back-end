@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import productiveparameter.Kyselypalvelu.domain.Kysely;
 import productiveparameter.Kyselypalvelu.domain.KyselyRepo;
@@ -57,19 +58,19 @@ public class KysymysController {
 	/*******************************************/
 
 	// 4. Uuden kysymyksen lisääminen HUOM!!!!!!!!!!! Ei käytetä tällä hetkellä
-	@RequestMapping(value = "/kysymys/lisaa")
-	public String lisaaKysymys(Model model) {
-		model.addAttribute("kysymys", new Kysymys());
-		model.addAttribute("kyselyt", kyselyrepo.findAll());
-		return "lisaakysymys";
-	}
+	// @RequestMapping(value = "/kysymys/lisaa")
+	// public String lisaaKysymys(Model model) {
+	// 	model.addAttribute("kysymys", new Kysymys());
+	// 	model.addAttribute("kyselyt", kyselyrepo.findAll());
+	// 	return "lisaakysymys";
+	// }
 
-	// 5. Tallenna kysymys HUOM!!!!!!!!!!! Ei käytetä tällä hetkellä
-	@RequestMapping(value = "/kysymys/tallenna", method = RequestMethod.POST)
-	public String tallennaKysymys(Kysymys kysymys) {
-		kysymysrepo.save(kysymys);
-		return "redirect:lisaakysymys";
-	}
+	// // 5. Tallenna kysymys HUOM!!!!!!!!!!! Ei käytetä tällä hetkellä
+	// @RequestMapping(value = "/kysymys/tallenna", method = RequestMethod.POST)
+	// public String tallennaKysymys(Kysymys kysymys) {
+	// 	kysymysrepo.save(kysymys);
+	// 	return "redirect:lisaakysymys";
+	// }
 
 	// 6. Lisää vaihtoehdot monivalintakysymyksiin
 	@RequestMapping(value = "/kysymys/{id}/lisaavaihtoehdot", method = RequestMethod.GET)
@@ -85,17 +86,19 @@ public class KysymysController {
 	// 7. Tallenna vaihtoehto monivalintakysymyksiin
 	@RequestMapping(value = "/kysymys/{id}/tallennavaihtoehto", method = RequestMethod.POST)
 	public String tallennaMonivalintaVaihtoehdot(@PathVariable("id") Long id,
-			@ModelAttribute MonivalintaVaihtoehto monivalintavaihtoehto) {
+			@ModelAttribute MonivalintaVaihtoehto monivalintavaihtoehto, RedirectAttributes redirectAttributes) {
 		monivalintavaihtoehto.setMonivalintavaihtoehto(monivalintavaihtoehto.getMonivalintavaihtoehto());
 		monivalintavaihtoehto.setKysymys(kysymysrepo.findById(id).get());
 		monivalintarepo.save(monivalintavaihtoehto);
+		redirectAttributes.addFlashAttribute("onnistumisviesti", "Vaihtoehto lisätty");
 		return "redirect:/kysymys/{id}/lisaavaihtoehdot";
 	}
 
 	// 8. Poistaa vaihtoehdon id:n avulla
 	@RequestMapping(value = "/kysymys/{id}/poista/{vaihtoehtoid}", method = RequestMethod.GET)
-	public String poistaVaihtoehto(@PathVariable("id") Long id, @PathVariable("vaihtoehtoid") Long vaihtoehtoId) {
+	public String poistaVaihtoehto(@PathVariable("id") Long id, @PathVariable("vaihtoehtoid") Long vaihtoehtoId, RedirectAttributes redirectAttributes) {
 		monivalintarepo.delete(monivalintarepo.findById(vaihtoehtoId).get());
+		redirectAttributes.addFlashAttribute("onnistumisviesti", "Vaihtoehto poistettu");
 		return "redirect:/kysymys/{id}/lisaavaihtoehdot";
 	}
 
